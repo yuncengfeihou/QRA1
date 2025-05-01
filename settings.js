@@ -297,21 +297,28 @@ export function createSettingsHtml() {
 
     // 在自定义图标的容器里添加保存按钮和选择下拉菜单
     const customIconContainer = `
-        <div class="custom-icon-container">
-            <div>
-                <label>自定义图标URL:</label>
-                <input type="text" id="${Constants.ID_CUSTOM_ICON_URL}" placeholder="输入URL或上传图片">
-                <button id="custom-icon-upload" class="menu_button">
-                    <i class="fa-solid fa-upload"></i>
-                </button>
+        <div class="custom-icon-container" style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="flex: 2; margin-right: 10px;">
+                    <label>自定义图标URL:</label>
+                    <input type="text" id="${Constants.ID_CUSTOM_ICON_URL}" style="width: 100%;" placeholder="输入URL或上传图片">
+                </div>
+                <div style="flex: 1;">
+                    <label>图标大小:</label>
+                    <input type="number" id="${Constants.ID_CUSTOM_ICON_SIZE_INPUT}" min="16" max="40" style="width: 100%;" value="${Constants.DEFAULT_CUSTOM_ICON_SIZE}">
+                </div>
             </div>
-            <div>
-                <label>图标大小:</label>
-                <input type="number" id="${Constants.ID_CUSTOM_ICON_SIZE_INPUT}" min="16" max="40" value="${Constants.DEFAULT_CUSTOM_ICON_SIZE}">
+            <div style="display: flex; justify-content: center;">
+                <label for="icon-file-upload" class="menu_button" style="display: inline-flex; align-items: center; cursor: pointer; margin: 0 auto;">
+                    <i class="fa-solid fa-upload"></i> 上传图片
+                </label>
+                <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
                 <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button">
                     <i class="fa-solid fa-save"></i> 保存
                 </button>
-                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select">
+                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="flex-grow: 1; margin-left: 10px;">
                     <option value="">-- 选择已保存图标 --</option>
                 </select>
             </div>
@@ -569,7 +576,28 @@ export function setupSettingsEventListeners() {
     // 文件上传监听器
     const fileUpload = document.getElementById('icon-file-upload');
     if (fileUpload) {
-        fileUpload.addEventListener('change', handleFileUpload); // 使用下面的 handleFileUpload
+        fileUpload.addEventListener('change', handleFileUpload);
+    } else {
+        console.warn(`[${Constants.EXTENSION_NAME}] 文件上传输入框未找到 (#icon-file-upload)`);
+    }
+
+    // 上传按钮点击事件 - 如果使用了label+input方案，这部分可能不需要
+    const uploadButton = document.getElementById('custom-icon-upload');
+    if (uploadButton) {
+        uploadButton.addEventListener('click', () => {
+            // 查找或创建文件输入框
+            let fileInput = document.getElementById('icon-file-upload');
+            if (!fileInput) {
+                fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.id = 'icon-file-upload';
+                fileInput.accept = 'image/*';
+                fileInput.style.display = 'none';
+                document.body.appendChild(fileInput);
+                fileInput.addEventListener('change', handleFileUpload);
+            }
+            fileInput.click(); // 触发文件选择对话框
+        });
     }
 
     // 添加保存按钮监听器
@@ -748,23 +776,29 @@ function saveCustomIcon() {
         settings.savedCustomIcons = [];
     }
     
-    // 生成一个简短的名称（使用URL的最后部分或时间戳）
-    let iconName = '';
+    // 生成默认名称（使用URL的最后部分或时间戳）
+    let defaultName = '';
     try {
         const urlParts = customIconUrl.split('/');
-        iconName = urlParts[urlParts.length - 1].substring(0, 20); // 取URL最后部分，最多20个字符
-        if (!iconName) {
+        defaultName = urlParts[urlParts.length - 1].substring(0, 20); // 取URL最后部分，最多20个字符
+        if (!defaultName) {
             throw new Error('无效名称');
         }
     } catch (e) {
         // 如果无法从URL提取名称，使用时间戳
-        iconName = `图标_${new Date().getTime()}`;
+        defaultName = `图标_${new Date().getTime()}`;
     }
+    
+    // 弹出重命名对话框
+    const iconName = prompt("请输入图标名称:", defaultName);
+    
+    // 如果用户取消了输入，则中止保存
+    if (iconName === null) return;
     
     // 保存图标数据
     const iconData = {
         id: `icon_${new Date().getTime()}`, // 唯一ID
-        name: iconName,
+        name: iconName || defaultName, // 如果用户输入为空，使用默认名称
         url: customIconUrl,
         size: customIconSize
     };
@@ -777,7 +811,7 @@ function saveCustomIcon() {
     // 显示保存成功信息
     const saveStatus = document.getElementById('qr-save-status');
     if (saveStatus) {
-        saveStatus.textContent = '✓ 图标已保存';
+        saveStatus.textContent = `✓ 图标"${iconData.name}"已保存`;
         saveStatus.style.color = '#4caf50';
         setTimeout(() => { saveStatus.textContent = ''; }, 2000);
     }
