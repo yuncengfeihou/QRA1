@@ -298,8 +298,9 @@ export function createSettingsHtml() {
     // 在自定义图标的容器里添加保存按钮和选择下拉菜单
     const customIconContainer = `
         <div class="custom-icon-container" style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="flex: 2; margin-right: 10px;">
+            <!-- 第一行：URL和大小 -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="flex: 3;">
                     <label>自定义图标URL:</label>
                     <input type="text" id="${Constants.ID_CUSTOM_ICON_URL}" style="width: 100%;" placeholder="输入URL或上传图片">
                 </div>
@@ -308,20 +309,28 @@ export function createSettingsHtml() {
                     <input type="number" id="${Constants.ID_CUSTOM_ICON_SIZE_INPUT}" min="16" max="40" style="width: 100%;" value="${Constants.DEFAULT_CUSTOM_ICON_SIZE}">
                 </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="icon-file-upload" class="menu_button" style="display: inline-flex; align-items: center; cursor: pointer; width: auto; padding: 0 10px; white-space: nowrap;">
-                    <i class="fa-solid fa-upload"></i> 上传图片
-                </label>
-                <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
-                
-                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="width: auto; padding: 0 10px; white-space: nowrap;">
-                    <i class="fa-solid fa-save"></i> 保存
-                </button>
-                
-                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="width: auto; min-width: 150px;">
-                    <option value="">-- 选择已保存图标 --</option>
-                </select>
-            </div>
+            
+            <!-- 第二行：使用表格布局确保三个元素在一行 -->
+            <table style="width: 100%; border-collapse: separate; border-spacing: 10px 0;">
+                <tr>
+                    <td style="width: 1%; white-space: nowrap;">
+                        <label for="icon-file-upload" class="menu_button" style="display: inline-block; cursor: pointer; padding: 0 10px;">
+                            <i class="fa-solid fa-upload"></i> 上传图片
+                        </label>
+                        <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
+                    </td>
+                    <td style="width: 1%; white-space: nowrap;">
+                        <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="padding: 0 10px;">
+                            <i class="fa-solid fa-save"></i> 保存
+                        </button>
+                    </td>
+                    <td>
+                        <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="width: 100%;">
+                            <option value="">-- 选择已保存图标 --</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
         </div>
     `;
 
