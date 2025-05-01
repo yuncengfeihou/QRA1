@@ -20,6 +20,7 @@ if (!window.extension_settings[Constants.EXTENSION_NAME]) {
         faIconCode: '',                                  
         matchButtonColors: true,
         menuStyles: JSON.parse(JSON.stringify(Constants.DEFAULT_MENU_STYLES))
+        savedCustomIcons: []
     };
 }
 
