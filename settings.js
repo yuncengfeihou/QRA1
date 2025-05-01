@@ -310,22 +310,20 @@ export function createSettingsHtml() {
                 </div>
             </div>
             
-            <!-- 第二行：使用flex布局确保三个元素在一行并解决高度问题 -->
-            <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
-                <label for="icon-file-upload" class="menu_button" style="cursor: pointer; padding: 5px 10px; height: 100%; white-space: nowrap; margin-right: 10px;">
+            <!-- 第二行：简单布局确保三个元素对齐 -->
+            <div style="display: flex; align-items: center;">
+                <label for="icon-file-upload" class="menu_button" style="margin-right: 10px; white-space: nowrap;">
                     <i class="fa-solid fa-upload"></i> 上传图片
                 </label>
                 <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
                 
-                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="padding: 5px 10px; height: 100%; white-space: nowrap; margin-right: 10px;">
+                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="margin-right: 10px; white-space: nowrap;">
                     <i class="fa-solid fa-save"></i> 保存
                 </button>
                 
-                <div style="flex: 1;">
-                    <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="width: 100%; box-sizing: border-box;">
-                        <option value="">-- 选择已保存图标 --</option>
-                    </select>
-                </div>
+                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="flex: 1; min-width: 0;">
+                    <option value="">-- 选择已保存图标 --</option>
+                </select>
             </div>
         </div>
     `;
