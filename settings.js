@@ -198,6 +198,29 @@ export function createSettingsHtml() {
     </div>
     `;
 
+    // 在自定义图标的容器里添加保存按钮和选择下拉菜单
+    const customIconContainer = `
+        <div class="custom-icon-container">
+            <div>
+                <label>自定义图标URL:</label>
+                <input type="text" id="${Constants.ID_CUSTOM_ICON_URL}" placeholder="输入URL或上传图片">
+                <button id="custom-icon-upload" class="menu_button">
+                    <i class="fa-solid fa-upload"></i>
+                </button>
+            </div>
+            <div>
+                <label>图标大小:</label>
+                <input type="number" id="${Constants.ID_CUSTOM_ICON_SIZE_INPUT}" min="16" max="40" value="${Constants.DEFAULT_CUSTOM_ICON_SIZE}">
+                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button">
+                    <i class="fa-solid fa-save"></i> 保存
+                </button>
+                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select">
+                    <option value="">-- 选择已保存图标 --</option>
+                </select>
+            </div>
+        </div>
+    `;
+
     // 使用说明面板 (需要更新内容)
     const usagePanel = `
     <div id="${Constants.ID_USAGE_PANEL}" class="qr-usage-panel">
