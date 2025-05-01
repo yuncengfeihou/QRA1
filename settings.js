@@ -313,12 +313,12 @@ export function createSettingsHtml() {
             <!-- 第二行：三个控件布局 -->
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                 <label for="icon-file-upload" class="menu_button" style="height: 28px; line-height: 28px; padding: 0 10px; margin: 0; display: inline-block; cursor: pointer;">
-                    <i class="fa-solid fa-upload"></i> 上传图片
+                    <i class="fa-solid fa-upload"></i> 上传文件
                 </label>
                 <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
                 
                 <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="height: 28px; line-height: 28px; padding: 0 10px; margin: 0 auto;">
-                    <i class="fa-solid fa-save"></i> 保存
+                    <i class="fa-solid fa-save"></i> 保存当前图标
                 </button>
                 
                 <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="height: 28px; width: auto;">
