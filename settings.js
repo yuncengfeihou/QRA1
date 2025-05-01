@@ -310,27 +310,21 @@ export function createSettingsHtml() {
                 </div>
             </div>
             
-            <!-- 第二行：使用表格布局确保三个元素在一行 -->
-            <table style="width: 100%; border-collapse: separate; border-spacing: 10px 0;">
-                <tr>
-                    <td style="width: 1%; white-space: nowrap;">
-                        <label for="icon-file-upload" class="menu_button" style="display: inline-block; cursor: pointer; padding: 0 10px;">
-                            <i class="fa-solid fa-upload"></i> 上传图片
-                        </label>
-                        <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
-                    </td>
-                    <td style="width: 1%; white-space: nowrap;">
-                        <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="padding: 0 10px;">
-                            <i class="fa-solid fa-save"></i> 保存
-                        </button>
-                    </td>
-                    <td>
-                        <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="width: 100%;">
-                            <option value="">-- 选择已保存图标 --</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+            <!-- 第二行：三个控件布局 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <label for="icon-file-upload" class="menu_button" style="height: 28px; line-height: 28px; padding: 0 10px; margin: 0; flex: 0 0 auto;">
+                    <i class="fa-solid fa-upload"></i> 上传图片
+                </label>
+                <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
+                
+                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="height: 28px; line-height: 28px; padding: 0 10px; margin: 0; flex: 0 0 auto;">
+                    <i class="fa-solid fa-save"></i> 保存
+                </button>
+                
+                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="height: 28px; width: auto; flex: 0 0 auto; min-width: 0; padding-right: 15px;">
+                    <option value="">选择已保存图标</option>
+                </select>
+            </div>
         </div>
     `;
 
