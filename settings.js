@@ -310,18 +310,16 @@ export function createSettingsHtml() {
                 </div>
             </div>
             
-            <!-- 第二行：使用inline-block强制每个元素的宽度仅为其内容宽度 -->
+            <!-- 第二行：最原始的HTML布局 -->
             <div>
-                <label for="icon-file-upload" class="menu_button" style="display: inline-block; margin-right: 10px;">
+                <label for="icon-file-upload" class="menu_button">
                     <i class="fa-solid fa-upload"></i> 上传图片
                 </label>
                 <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
-                
-                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="display: inline-block; margin-right: 10px;">
+                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button">
                     <i class="fa-solid fa-save"></i> 保存
                 </button>
-                
-                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="display: inline-block; width: auto;">
+                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select">
                     <option value="">-- 选择已保存图标 --</option>
                 </select>
             </div>
