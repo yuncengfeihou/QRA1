@@ -536,6 +536,18 @@ function saveSettings() {
 }
 
 /**
+ * 辅助函数，安全地添加事件监听器
+ */
+function safeAddListener(id, event, handler) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.addEventListener(event, handler);
+    } else {
+        console.warn(`[${Constants.EXTENSION_NAME} Settings] Element not found: #${id}. Cannot add listener.`);
+    }
+}
+
+/**
  * 设置事件监听器 (文件上传等)
  */
 export function setupSettingsEventListeners() {
