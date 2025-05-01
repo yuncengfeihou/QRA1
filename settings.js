@@ -310,18 +310,18 @@ export function createSettingsHtml() {
                 </div>
             </div>
             
-            <!-- 第二行：简单布局确保三个元素对齐 -->
-            <div style="display: flex; align-items: center;">
-                <label for="icon-file-upload" class="menu_button" style="margin-right: 10px; white-space: nowrap;">
+            <!-- 第二行：使用inline-block强制每个元素的宽度仅为其内容宽度 -->
+            <div>
+                <label for="icon-file-upload" class="menu_button" style="display: inline-block; margin-right: 10px;">
                     <i class="fa-solid fa-upload"></i> 上传图片
                 </label>
                 <input type="file" id="icon-file-upload" accept="image/*" style="display: none;">
                 
-                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="margin-right: 10px; white-space: nowrap;">
+                <button id="${Constants.ID_CUSTOM_ICON_SAVE}" class="menu_button" style="display: inline-block; margin-right: 10px;">
                     <i class="fa-solid fa-save"></i> 保存
                 </button>
                 
-                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="flex: 1; min-width: 0;">
+                <select id="${Constants.ID_CUSTOM_ICON_SELECT}" class="transparent-select" style="display: inline-block; width: auto;">
                     <option value="">-- 选择已保存图标 --</option>
                 </select>
             </div>
